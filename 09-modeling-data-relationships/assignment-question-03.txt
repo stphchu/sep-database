@@ -1,0 +1,103 @@
+CREATE TABLE students (
+      id integer,
+      last_name text,
+  	  first_name text
+);
+
+CREATE TABLE classes (
+      id integer,
+      class text,
+      student_id integer,
+  	  grade text
+);
+
+
+INSERT INTO students (id, last_name, first_name)
+	VALUES
+  	(1, 'Lannister', 'Jaime'),
+  	(2, 'Lannister', 'Cersei'),
+  	(3, 'Targaryen', 'Daenerys'),
+  	(4, 'Stark', 'Arya'),
+  	(5, 'Snow', 'Jon'),
+  	(6, 'Stark', 'Sansa'),
+  	(7, 'Greyjoy', 'Theon'),
+  	(8, 'Tarly', 'Samwell')
+;
+
+
+INSERT INTO classes (id, class , student_id, grade)
+	VALUES
+  	(1, 'Medieval Art of the West', 6, 'B'),
+	  (2, 'Medieval Art of the West', 3, 'A'),
+    (3, 'Medieval Art of the West', 8, 'B'),
+	  (4, 'Medieval Art of the West', 5, 'A'),
+    (5, 'Philosophy', 8, 'A'),
+    (6, 'Philosophy', 4, 'A'),
+    (7, 'World History II', 8, 'A'),
+    (8, 'World History II', 5, 'B'),
+    (9, 'World History II', 7, 'C'),
+    (10, 'International Economics', 1, 'B'),
+    (11, 'International Economics', 2, 'B'),
+    (12, 'International Economics', 8, 'B'),
+    (13, 'Anthropology', 8, 'A'),
+    (14, 'Anthropology', 4, 'C'),
+    (15, 'Anthropology', 3, 'B')
+;
+
+- All students who have taken a particular class.
+
+    SELECT students.last_name, students.first_name
+    FROM classes
+    JOIN students
+    ON students.id = classes.student_id
+    WHERE class = 'Medieval Art of the West';
+
+    | last_name | first_name |
+    | --------- | ---------- |
+    | Targaryen | Daenerys   |
+    | Snow      | Jon        |
+    | Stark     | Sansa      |
+    | Tarly     | Samwell    |
+
+
+- The number of each grade (using letter grades A-F) earned in a particular class.
+
+  SELECT grade, COUNT(grade)
+  FROM classes
+  WHERE class = 'Medieval Art of the West'
+  GROUP BY grade;
+
+  | grade | COUNT(grade) |
+  | ----- | ------------ |
+  | A     | 2            |
+  | B     | 2            |
+
+
+- Class names and the total number of students who have taken each class in the list.
+
+  SELECT class, COUNT(DISTINCT student_id)
+  FROM classes
+  GROUP BY class;
+
+  | class                    | COUNT(DISTINCT student_id) |
+  | ------------------------ | -------------------------- |
+  | Anthropology             | 3                          |
+  | International Economics  | 3                          |
+  | Medieval Art of the West | 4                          |
+  | Philosophy               | 2                          |
+  | World History II         | 3                          |
+
+
+- The class taken by the largest number of students.
+
+  SELECT class
+  FROM classes
+  GROUP BY class
+  ORDER BY COUNT(DISTINCT student_id) DESC
+  LIMIT 1;
+
+  | class                    |
+  | ------------------------ |
+  | Medieval Art of the West |
+
+  

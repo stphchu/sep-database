@@ -1,0 +1,28 @@
+Design a data model for students and the classes they have taken.
+The model should include the students' grades for a given class.
+
+- Work through the questions from the example above:
+  - What classes/entities do we need to model?
+    > We need to store 'student' and 'class' information.
+
+  - What fields/attributes will each entity need?
+    > For 'students', it'll need an ID number, first name, and last name;
+      for 'classes', it'll need an ID number, class name, ID numbers of students
+      in the class, and the grade for each student.
+
+  - What data types do we need to use?
+    > 'Text' will be used for names and grades; 'integer' will be used for ID
+      numbers.
+
+  - What relationships exist between entities?
+    > The relationship between 'students' and 'classes' is "many-to-many".
+
+  - How should those relationships be represented in tables?
+    > In the 'students' table, each row represents one student; in the 'classes'
+      table, each row represents a course and a student in that class (plus that
+      student's grade).
+
+- Draw the model using the notation used in the checkpoint and submit a picture.
+You can also use a tool like StarUML or quickdatabasediagrams.com if you choose.
+
+  > See file
